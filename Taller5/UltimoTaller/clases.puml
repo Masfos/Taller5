@@ -1,0 +1,160 @@
+@startuml
+class JFrame {
+  // Clase proporcionada por la biblioteca estándar de Java
+}
+
+class BiblioTech {
+  -password: JPasswordField
+  -rut: JTextField
+  -abrir: JButton
+  -cerrar: JButton
+  -login: JPanel
+  -usuarios: List<Usuario>
+  -libros: List<Libro>
+  +BiblioTech()
+  +cerrarPrograma(): void
+  +iniciarSesion(): void
+  +mostrarMenuPrincipal(): void
+  +buscarUsuario(rut: JTextField): Usuario
+  +mostrarMensajeError(s: String): void
+}
+
+class MenuPrincipal {
+  -libros: List<Libro>
+  -usuarios: List<Usuario>
+  -buscarLibroButton: JButton
+  -devolverLibroButton: JButton
+  -agregarLibroNuevoButton: JButton
+  -prestarLibroButton: JButton
+  -menu: JPanel
+  +MenuPrincipal(usuarios: List<Usuario>, libros: List<Libro>)
+  +buscarLibro(): void
+  +devolverLibro(): void
+  +agregarLibro(): void
+  +prestarLibro(): void
+  +devolverLibroPorISBN(isbn: String): boolean
+  +buscarLibroPorISBN(isbn: String): Libro
+  +prestarLibroPorISBN(isbn: String): boolean
+}
+
+class SistemImpl {
+  -usuarios: List<Usuario>
+  -libros: List<Libro>
+  -form: BiblioTech
+  +SistemImpl()
+  +starProgram(): void
+}
+
+class Libro {
+  -isbn: String
+  -titulo: String
+  -autor: String
+  -categoria: String
+  -cantidadPaginas: int
+  -stock: int
+  +Libro(isbn: String, titulo: String, autor: String, categoria: String, cantidadPaginas: int, stock: int)
+  +getIsbn(): String
+  +setIsbn(isbn: String): void
+  +getTitulo(): String
+  +setTitulo(titulo: String): void
+  +getAutor(): String
+  +setAutor(autor: String): void
+  +getCategoria(): String
+  +setCategoria(categoria: String): void
+  +getCantidadPaginas(): int
+  +setCantidadPaginas(cantidadPaginas: int): void
+  +getStock(): int
+  +setStock(stock: int): void
+  +stockBajo(): void
+  +incrementarStock(): void
+}
+
+class Usuario {
+  -rut: String
+  -nombre: String
+  -apellido: String
+  -contraseña: String
+  +Usuario(rut: String, nombre: String, apellido: String, contraseña: String)
+  +getRut(): String
+  +setRut(rut: String): void
+  +getNombre(): String
+  +setNombre(nombre: String): void
+  +getApellido(): String
+  +setApellido(apellido: String): void
+  +getContraseña(): String
+  +setContraseña(contraseña: String): void
+}
+
+class Utils {
+  +leerArchivoLibros(): List<Libro>
+  +leerArchivoUsuarios(): List<Usuario>
+  +leerArchivoRegistro(): List<Registro>
+   +registrarRegistros(registros: List<Registro>): void
+}
+class Registro {
+  -rutVendedor: String
+  -nombre: String
+  -apellido: String
+  -isbnLibro: String
+  -nombreLibro: String
+  -tipoTransaccion: String
+  +Registro(rutVendedor: String, nombre: String, apellido: String, isbnLibro: String, nombreLibro: String, tipoTransaccion: String)
+  +getRutVendedor(): String
+  +setRutVendedor(rutVendedor: String): void
+  +getNombre(): String
+  +setNombre(nombre: String): void
+  +getApellido(): String
+  +setApellido(apellido: String): void
+  +getIsbnLibro(): String
+  +setIsbnLibro(isbnLibro: String): void
+  +getNombreLibro(): String
+  +setNombreLibro(nombreLibro: String): void
+  +getTipoTransaccion(): String
+  +setTipoTransaccion(tipoTransaccion: String): void
+}
+
+class VerPerfil {
+  - perfil: JPanel
+  - list1: JList
+  - volverMenu: JButton
+  + VerPerfil(registro: List<Registro>, menuPrincipal: MenuPrincipal)
+  - obtenerUsuarioActual(rut: String): Usuario
+}
+
+class BuscarLibro{
+ - panel: JPanel
+  - isbn: JLabel
+  - buscarISBN: JTextField
+  - buscar: JButton
+  - volver: JButton
+  - list1: JList
+  - libros: List<Libro>
+  - menuPrincipal: MenuPrincipal
+
+  + BuscarLibro(libros: List<Libro>, menuPrincipal: MenuPrincipal)
+  - buscarLibro()
+  - volverAlMenuPrincipal()
+  - buscarLibroPorISBN(libros: List<Libro>, isbn: String): Libro
+}
+JFrame <|-- BiblioTech
+JFrame <|-- MenuPrincipal
+JFrame <|-- BuscarLibro
+BiblioTech --|> JFrame
+BiblioTech --> Usuario
+BiblioTech --> Libro
+BiblioTech --> Utils
+MenuPrincipal --|> JFrame
+MenuPrincipal --> Usuario
+MenuPrincipal --> Libro
+SistemImpl --> Usuario
+SistemImpl --> Libro
+SistemImpl --> BiblioTech
+Libro --> Utils
+Usuario --> Utils
+BuscarLibro --|> JFrame
+BuscarLibro --> Usuario
+BuscarLibro --> Libro
+VerPerfil --|> JFrame
+VerPerfil --> Registro
+VerPerfil --> MenuPrincipal
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+skin rose
+class BiblioTech{
+    Libros
+    Socios
+}
+
+
+class Libro {
+
+  -isbn: String
+  -titulo: String
+  -autor: String
+  -categoria: String
+  -cantidadPaginas: int
+  -stock: int
+
+
+class Usuario {
+    Rut
+    Nombre
+    Apellido
+    Contrasenia
+}
+
+BiblioTech "1" -- "*" Usuario : contiene
+BiblioTech "1" -- "*" Libro : contiene
+
+@enduml
+@startuml
+left to right direction
+skin rose
+
+class BiblioTech{
+    Libros
+    Socios
+}
+class Libro{
+    ISBN
+    Calificacion
+    Copias Disponibles
+}
+class Socio{
+    Nombre
+    Apellido
+    Correo Electronico
+    Numero de Socio
+    Contrasenia
+    Lista de libros que ha tomado prestado
+}
+Socio "1.." -> "1.." Libro  : Solicita
+BiblioTech "1" --> "1.." Socio  : Tiene
+BiblioTech "1" --> "1.." Libro  : Tiene
+@enduml
